@@ -1,0 +1,52 @@
+.hero {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../images/home.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 110vh;
+}
+.game-cards {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: none;
+}
+.card {
+    border: none !important;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(67, 64, 64, 0.3);
+    transition: 0.3s ease-in-out;
+    background-color: #111;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+.card video {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+.card .btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: rgb(33, 67, 67);
+    color: azure;
+}
+.card .btn:hover{
+    background-color: rgb(56, 141, 215);
+}
+.card-body{
+    background-color: #778b85;
+}
+@media (max-width: 900px) {
+    .hero{
+        height: 200vh;
+    }
+}

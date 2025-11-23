@@ -1,0 +1,7 @@
+.navbar{
+    background-color: rgb(13, 13, 14);
+}
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus {
+    background-color: #555 !important;              
+}

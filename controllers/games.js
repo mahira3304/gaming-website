@@ -1,0 +1,9 @@
+exports.connect=(req,res)=>{
+    res.render('games/connect4')
+}
+exports.mole=(req,res)=>{
+    res.render('games/mole')
+}
+exports.tictactoe=(req,res)=>{
+    res.render('games/tictactoe')
+}

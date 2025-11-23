@@ -1,0 +1,46 @@
+.gameArea{
+    height: 110vh;
+}
+.gameArea h1{
+    text-align: center;
+    padding: 30px;
+}
+#board{
+    height: 540px;
+    width: 570px;
+    background-color: rgb(27, 35, 143);
+    margin:0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.rounds{
+    height:70px;
+    width:71px;
+    margin:5px;
+    background-color: aliceblue;
+    border-radius:50%;
+}
+.red-piece{
+    background-color: rgb(233, 52, 7);
+}
+.yellow-piece{
+    background-color: rgb(243, 209, 21);
+}
+#restartBtn {
+    background-color: rgb(73, 78, 81);
+    color: beige;
+    height: 32px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+@media (max-width: 600px) {
+    #board{
+        width: auto;
+        height: auto;
+    }
+}

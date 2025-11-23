@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whac a Mole</title>
+    <link rel="stylesheet" href="/css/mole.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <%-include('../navbar')%>
+
+    <div class="gameArea">
+        <h1 class="text-center">Whac a Mole</h1>
+        <h2 class="text-center"id="score">0</h2>
+        <div id="board"></div>
+        <button id="restartBtn">Restart</button>
+    </div>
+
+    <script>
+    let currentMolePipe;
+    let currentPlantPipe;
+    let gameOver = false;
+    let score = 0;
+
+    window.onload = function() {
+        startGame();
+    }
+
+    function startGame() {
+        for (let i = 0; i < 9; i++) {
+            let pipe = document.createElement("div")
+            pipe.id = i.toString()
+            pipe.classList.add("pipe")
+            pipe.addEventListener("click", selectPipe)
+            document.getElementById("board").appendChild(pipe)
+        }
+        setInterval(setMole,1000)
+        setInterval(setPlant,2000)
+    }
+
+    function getRandomPipe() {
+        return Math.floor(Math.random() * 9).toString()
+    }
+
+    function setMole() {
+        if (gameOver){
+            return
+        }
+        if (currentMolePipe){
+            currentMolePipe.innerHTML = ""
+        }
+        let mole = document.createElement("img")
+        mole.src = "/images/mole/monty-mole.png"
+        let num = getRandomPipe()
+
+        if (currentPlantPipe && currentPlantPipe.id == num){
+            return
+        }
+        currentMolePipe= document.getElementById(num)
+        currentMolePipe.appendChild(mole)
+    }
+    function setPlant() {
+        if (gameOver){
+            return
+        }
+
+        if (currentPlantPipe){
+            currentPlantPipe.innerHTML = ""
+        }
+
+        let plant = document.createElement("img")
+        plant.src = "/images/mole/piranha-plant.png"
+
+        let num = getRandomPipe()
+        if (currentMolePipe && currentMolePipe.id == num){
+            return
+        }
+
+        currentPlantPipe = document.getElementById(num)
+        currentPlantPipe.appendChild(plant)
+    }
+
+    function selectPipe(){
+        if (gameOver){
+            return
+        }
+        if (this == currentMolePipe) {
+            score += 10
+            document.getElementById("score").innerText = score.toString()
+        }
+        else if (this == currentPlantPipe) {
+            gameOver = true
+            document.getElementById("score").innerText = "GAME OVER: " + score
+        }
+    }
+
+    const restartBtn = document.querySelector("#restartBtn")
+    restartBtn.addEventListener("click", restartGame);
+
+    function restartGame(){
+        gameOver = false;
+        score = 0;
+        document.getElementById("score").innerText = score;
+        currentMolePipe = null;
+        currentPlantPipe = null;
+        const board = document.getElementById("board");
+        board.innerHTML = "";
+
+        for (let i = 0; i < 9; i++) {
+            let pipe = document.createElement("div");
+            pipe.id = i.toString();
+            pipe.classList.add("pipe");
+            pipe.addEventListener("click", selectPipe);
+            board.appendChild(pipe);
+        }
+    }
+</script>
+</body>
+</html>

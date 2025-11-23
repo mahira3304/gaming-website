@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>connect4</title>
+    <link rel="stylesheet" href="/css/connect4.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+
+    <%-include('../navbar')%>
+
+    <div class="gameArea">
+        <h1 class="text-secondary">connect 4</h1>
+        <h2 id="winner" class="text-center"></h2>
+        <div id="board"></div>
+        <button id="restartBtn">Restart</button>
+    </div>
+
+    <script>
+        var board
+        var playerRed = "R"
+        var playerYellow = "Y"
+        var currentPlayer = playerRed
+        var rows = 6
+        var columns = 7
+        var currentColumns = []
+        var gameOver = false
+        
+
+        window.onload = function() {
+            startGame()
+        }
+
+        function startGame() {
+            board = [];
+            currentColumns = [5,5,5,5,5,5,5];
+            document.getElementById("board").innerHTML = "";
+
+            for (let r = 0; r < rows; r++) {
+                let row = [];
+                for (let c = 0; c < columns; c++) {
+                    row.push(' ');  
+                    let rounds = document.createElement("div");
+                    rounds.id = r + "-" + c;
+                    rounds.classList.add("rounds");
+                    rounds.addEventListener("click", setBolls);
+                    document.getElementById("board").append(rounds);
+                }
+                board.push(row);
+            }
+        }
+
+        function setBolls(){
+            if (gameOver) {
+                return;
+            }
+            let roundPoition = this.id.split("-")
+            let r = parseInt(roundPoition[0]);
+            let c = parseInt(roundPoition[1]);
+
+            r=currentColumns[c]
+
+            if(r<0){
+                return
+            }
+            board[r][c]=currentPlayer
+            let rounds = document.getElementById(r.toString() + "-" + c.toString())
+            if (currentPlayer == playerRed) {
+                rounds.classList.add("red-piece");
+                currentPlayer = playerYellow;
+            }
+            else {
+                rounds.classList.add("yellow-piece");
+                currentPlayer = playerRed;
+            }
+            currentColumns[c] -= 1;
+            checkWinner();
+        }
+        function checkWinner() {
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < columns - 3; c++){
+                    if (board[r][c] != ' ') {
+                        if (board[r][c] == board[r][c+1] && board[r][c+1] == board[r][c+2] && board[r][c+2] == board[r][c+3]) {
+                            Winner(r, c);
+                            return;
+                        }
+                    }
+                }
+            }
+            for (let c = 0; c < columns; c++) {
+                for (let r = 0; r < rows - 3; r++) {
+                    if (board[r][c] != ' ') {
+                        if (board[r][c] == board[r+1][c] && board[r+1][c] == board[r+2][c] && board[r+2][c] == board[r+3][c]) {
+                            Winner(r, c);
+                            return;
+                        }
+                    }
+                }
+            }
+            for (let r = 0; r < rows - 3; r++) {
+                for (let c = 0; c < columns - 3; c++) {
+                    if (board[r][c] != ' ') {
+                        if (board[r][c] == board[r+1][c+1] && board[r+1][c+1] == board[r+2][c+2] && board[r+2][c+2] == board[r+3][c+3]) {
+                            Winner(r, c);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            for (let r = 3; r < rows; r++) {
+                for (let c = 0; c < columns - 3; c++) {
+                    if (board[r][c] != ' ') {
+                        if (board[r][c] == board[r-1][c+1] && board[r-1][c+1] == board[r-2][c+2] && board[r-2][c+2] == board[r-3][c+3]) {
+                            Winner(r, c);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        function Winner(r, c) {
+            let winner = document.getElementById("winner");
+            if (board[r][c] == playerRed) {
+                winner.innerText = "Red Wins";             
+            } else {
+                winner.innerText = "Yellow Wins";
+            }
+            gameOver = true;
+        }
+
+        const restartBtn = document.querySelector("#restartBtn")
+        restartBtn.addEventListener("click", restartGame);
+
+        function restartGame() {
+            gameOver = false;           
+            currentPlayer = playerRed;  
+            document.getElementById("winner").innerText = ""; 
+            startGame();              
+        }
+    </script>
+</body>
+</html>
