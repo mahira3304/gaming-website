@@ -13,6 +13,9 @@ app.use('/navbar',navbar)
 const home=require('./routers/home')
 app.use('/',home)
 
+const about=require('./routers/about')
+app.use('/',about)
+
 const gameRoute = require('./routers/games') 
 app.use('/games',gameRoute)
 

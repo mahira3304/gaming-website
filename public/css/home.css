@@ -45,6 +45,26 @@
 .card-body{
     background-color: #778b85;
 }
+.contents{
+    font-size: 15px;
+}
+.links{
+    color: aliceblue;
+    font-size: 22px;
+    text-decoration: none;
+}
+.contact{
+    color: aliceblue;
+    font-size: 22px;;
+}
+.footer-icon {
+    color: white;
+    font-size: 15px;
+}
+
+.footer-icon:hover {
+    color: #67686a;
+}
 @media (max-width: 900px) {
     .hero{
         height: 200vh;
